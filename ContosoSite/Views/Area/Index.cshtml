@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ContosoSite.Models.AREA>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.areaname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.x_coord)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.y_coord)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.areaname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.x_coord)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.y_coord)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AreaID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AreaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AreaID })
+        </td>
+    </tr>
+}
+
+</table>

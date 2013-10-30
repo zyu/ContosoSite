@@ -1,0 +1,42 @@
+﻿@model ContosoSite.Models.AREA
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AREA</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.areaname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.areaname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.x_coord)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.x_coord)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.y_coord)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.y_coord)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AreaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

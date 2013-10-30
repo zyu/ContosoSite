@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fb1af34d4a03444cacc5d91e7f611bc4" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="ContosoUniversityModel.Course" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversityModel.Enrollment" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversityModel.Student" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="ContosoUniversityModel.FK_dbo_Enrollment_dbo_Course_CourseID" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversityModel.FK_dbo_Enrollment_dbo_Student_StudentID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ContosoUniversityModel.AREA" Width="1.5" PointX="2.5" PointY="5" />
+        <EntityTypeShape EntityType="ContosoUniversityModel.TypeName" Width="1.5" PointX="6.75" PointY="4.875" />
+        <EntityTypeShape EntityType="ContosoUniversityModel.DT" Width="1.5" PointX="9" PointY="4.75" />
+        <AssociationConnector Association="ContosoUniversityModel.FK_dbo_DT_dbo_areaid" />
+        <AssociationConnector Association="ContosoUniversityModel.FK_dbo_DT_industrytype" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

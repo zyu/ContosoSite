@@ -1,0 +1,73 @@
+﻿@model ContosoSite.Models.DT
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>DT</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.industrytype, "industrytype", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("industrytype", String.Empty)
+                @Html.ValidationMessageFor(model => model.industrytype)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.tatol, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tatol)
+                @Html.ValidationMessageFor(model => model.tatol)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.years, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.years)
+                @Html.ValidationMessageFor(model => model.years)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.areaid, "areaid", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("areaid", String.Empty)
+                @Html.ValidationMessageFor(model => model.areaid)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.bp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.bp)
+                @Html.ValidationMessageFor(model => model.bp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

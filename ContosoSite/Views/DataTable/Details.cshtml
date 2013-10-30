@@ -1,0 +1,58 @@
+﻿@model ContosoSite.Models.DataTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DataTable</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tatol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tatol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.years)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.years)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AREA.areaname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AREA.areaname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeName.typename1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeName.typename1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DataTableID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

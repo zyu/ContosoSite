@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ContosoUniversityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AREA">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="areaname" Type="nvarchar" MaxLength="50" />
+          <Property Name="x_coord" Type="varchar" MaxLength="50" />
+          <Property Name="y_coord" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Credits" Type="int" />
+        </EntityType>
+        <EntityType Name="DT">
+          <Key>
+            <PropertyRef Name="DTID" />
+          </Key>
+          <Property Name="DTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="industrytype" Type="int" Nullable="false" />
+          <Property Name="tatol" Type="varchar" MaxLength="50" />
+          <Property Name="years" Type="int" />
+          <Property Name="areaid" Type="int" Nullable="false" />
+          <Property Name="bp" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="EnrollmentID" />
+          </Key>
+          <Property Name="EnrollmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Grade" Type="decimal" Precision="3" Scale="2" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EnrollmentDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TypeName">
+          <Key>
+            <PropertyRef Name="TypeNameID" />
+          </Key>
+          <Property Name="TypeNameID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typename" Type="nvarchar" MaxLength="50" />
+          <Property Name="parentid" Type="int" />
+        </EntityType>
+        <Association Name="FK_dbo_DT_industrytype">
+          <End Role="TypeName" Type="Self.TypeName" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DT" Type="Self.DT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeName">
+              <PropertyRef Name="TypeNameID" />
+            </Principal>
+            <Dependent Role="DT">
+              <PropertyRef Name="industrytype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_DT_dbo_areaid">
+          <End Role="AREA" Type="Self.AREA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DT" Type="Self.DT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AREA">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="DT">
+              <PropertyRef Name="areaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Enrollment_dbo_Course_CourseID">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Enrollment_dbo_Student_StudentID">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContosoUniversityModelStoreContainer">
+          <EntitySet Name="AREA" EntityType="Self.AREA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DT" EntityType="Self.DT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enrollment" EntityType="Self.Enrollment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeName" EntityType="Self.TypeName" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_DT_industrytype" Association="Self.FK_dbo_DT_industrytype">
+            <End Role="TypeName" EntitySet="TypeName" />
+            <End Role="DT" EntitySet="DT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_DT_dbo_areaid" Association="Self.FK_dbo_DT_dbo_areaid">
+            <End Role="AREA" EntitySet="AREA" />
+            <End Role="DT" EntitySet="DT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Enrollment_dbo_Course_CourseID" Association="Self.FK_dbo_Enrollment_dbo_Course_CourseID">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Enrollment" EntitySet="Enrollment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Enrollment_dbo_Student_StudentID" Association="Self.FK_dbo_Enrollment_dbo_Student_StudentID">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Enrollment" EntitySet="Enrollment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContosoUniversityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Credits" Type="Int32" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.FK_dbo_Enrollment_dbo_Course_CourseID" FromRole="Course" ToRole="Enrollment" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="EnrollmentID" />
+          </Key>
+          <Property Name="EnrollmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Grade" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_dbo_Enrollment_dbo_Course_CourseID" FromRole="Enrollment" ToRole="Course" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_dbo_Enrollment_dbo_Student_StudentID" FromRole="Enrollment" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EnrollmentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.FK_dbo_Enrollment_dbo_Student_StudentID" FromRole="Student" ToRole="Enrollment" />
+        </EntityType>
+        <Association Name="FK_dbo_Enrollment_dbo_Course_CourseID">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Enrollment_dbo_Student_StudentID">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContosoUniversityEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="Enrollments" EntityType="Self.Enrollment" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK_dbo_Enrollment_dbo_Course_CourseID" Association="Self.FK_dbo_Enrollment_dbo_Course_CourseID">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Enrollment" EntitySet="Enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Enrollment_dbo_Student_StudentID" Association="Self.FK_dbo_Enrollment_dbo_Student_StudentID">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Enrollment" EntitySet="Enrollments" />
+          </AssociationSet>
+          <EntitySet Name="AREAs" EntityType="ContosoUniversityModel.AREA" />
+          <EntitySet Name="TypeNames" EntityType="ContosoUniversityModel.TypeName" />
+          <EntitySet Name="DTs" EntityType="ContosoUniversityModel.DT" />
+          <AssociationSet Name="FK_dbo_DT_dbo_areaid" Association="ContosoUniversityModel.FK_dbo_DT_dbo_areaid">
+            <End Role="AREA" EntitySet="AREAs" />
+            <End Role="DT" EntitySet="DTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_DT_industrytype" Association="ContosoUniversityModel.FK_dbo_DT_industrytype">
+            <End Role="TypeName" EntitySet="TypeNames" />
+            <End Role="DT" EntitySet="DTs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AREA">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="areaname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="x_coord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="y_coord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DTs" Relationship="ContosoUniversityModel.FK_dbo_DT_dbo_areaid" FromRole="AREA" ToRole="DT" />
+        </EntityType>
+        <EntityType Name="TypeName">
+          <Key>
+            <PropertyRef Name="TypeNameID" />
+          </Key>
+          <Property Name="TypeNameID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typename1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="parentid" Type="Int32" />
+          <NavigationProperty Name="DTs" Relationship="ContosoUniversityModel.FK_dbo_DT_industrytype" FromRole="TypeName" ToRole="DT" />
+        </EntityType>
+        <EntityType Name="DT">
+          <Key>
+            <PropertyRef Name="DTID" />
+          </Key>
+          <Property Name="DTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="industrytype" Type="Int32" Nullable="false" />
+          <Property Name="tatol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="years" Type="Int32" />
+          <Property Name="areaid" Type="Int32" Nullable="false" />
+          <Property Name="bp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AREA" Relationship="ContosoUniversityModel.FK_dbo_DT_dbo_areaid" FromRole="DT" ToRole="AREA" />
+          <NavigationProperty Name="TypeName" Relationship="ContosoUniversityModel.FK_dbo_DT_industrytype" FromRole="DT" ToRole="TypeName" />
+        </EntityType>
+        <Association Name="FK_dbo_DT_dbo_areaid">
+          <End Type="ContosoUniversityModel.AREA" Role="AREA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ContosoUniversityModel.DT" Role="DT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AREA">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="DT">
+              <PropertyRef Name="areaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_DT_industrytype">
+          <End Type="ContosoUniversityModel.TypeName" Role="TypeName" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ContosoUniversityModel.DT" Role="DT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeName">
+              <PropertyRef Name="TypeNameID" />
+            </Principal>
+            <Dependent Role="DT">
+              <PropertyRef Name="industrytype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContosoUniversityModelStoreContainer" CdmEntityContainer="ContosoUniversityEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="ContosoUniversityModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enrollments">
+            <EntityTypeMapping TypeName="ContosoUniversityModel.Enrollment">
+              <MappingFragment StoreEntitySet="Enrollment">
+                <ScalarProperty Name="EnrollmentID" ColumnName="EnrollmentID" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="ContosoUniversityModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EnrollmentDate" ColumnName="EnrollmentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AREAs">
+            <EntityTypeMapping TypeName="ContosoUniversityModel.AREA">
+              <MappingFragment StoreEntitySet="AREA">
+                <ScalarProperty Name="y_coord" ColumnName="y_coord" />
+                <ScalarProperty Name="x_coord" ColumnName="x_coord" />
+                <ScalarProperty Name="areaname" ColumnName="areaname" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeNames">
+            <EntityTypeMapping TypeName="ContosoUniversityModel.TypeName">
+              <MappingFragment StoreEntitySet="TypeName">
+                <ScalarProperty Name="parentid" ColumnName="parentid" />
+                <ScalarProperty Name="typename1" ColumnName="typename" />
+                <ScalarProperty Name="TypeNameID" ColumnName="TypeNameID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DTs">
+            <EntityTypeMapping TypeName="ContosoUniversityModel.DT">
+              <MappingFragment StoreEntitySet="DT">
+                <ScalarProperty Name="bp" ColumnName="bp" />
+                <ScalarProperty Name="areaid" ColumnName="areaid" />
+                <ScalarProperty Name="years" ColumnName="years" />
+                <ScalarProperty Name="tatol" ColumnName="tatol" />
+                <ScalarProperty Name="industrytype" ColumnName="industrytype" />
+                <ScalarProperty Name="DTID" ColumnName="DTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
